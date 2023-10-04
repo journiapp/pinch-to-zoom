@@ -6,6 +6,40 @@ The Jetpack Compose Pinch-To-Zoom library is a tool that provides pinch-to-zoom 
 
 2. **PinchToZoom**: This Composable should be used as a direct wrapper for the view that needs to be zoomed and panned.
 
+## Usage
+
+1. Import the library into your project.
+
+2. Wrap your zoomable content with `PinchToZoom` and your root view with `PinchToZoomRoot`.
+
+3. Customize the behavior by adjusting the provided parameters as needed.
+
+```kotlin
+@Composable
+fun MyZoomableScreen() {
+    PinchToZoomRoot {
+        // Your UI layout
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            PinchToZoom {
+                // Zoomable content
+                Image(
+                    painter = painterResource(id = R.drawable.my_image),
+                    contentDescription = null,
+                    modifier = Modifier.fillMaxSize(),
+                    contentScale = ContentScale.Fit
+                )
+            }
+        }
+    }
+}
+```
+
+Check for more samples in the [sample app](https://github.com/journiapp/pinch-to-zoom/tree/main/app)
+
 ## PinchToZoomRoot
 
 The `PinchToZoomRoot` Composable allows you to handle zooming and panning of a child Composable. Here is how you can use it:
@@ -44,41 +78,9 @@ fun MyZoomableContent() {
 - `showOriginal`: If `true`, the original Composable will still be shown in the background when zooming is started (default is `true`).
 - `content`: The Composable that will be zoomed and panned.
 
-## Usage
-
-1. Import the library into your project.
-
-2. Wrap your zoomable content with `PinchToZoom` and your root view with `PinchToZoomRoot`.
-
-3. Customize the behavior by adjusting the provided parameters as needed.
-
-```kotlin
-@Composable
-fun MyZoomableScreen() {
-    PinchToZoomRoot {
-        // Your UI layout
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            PinchToZoom {
-                // Zoomable content
-                Image(
-                    painter = painterResource(id = R.drawable.my_image),
-                    contentDescription = null,
-                    modifier = Modifier.fillMaxSize(),
-                    contentScale = ContentScale.Fit
-                )
-            }
-        }
-    }
-}
-```
-
 ## License
 
-Copyright 2022 Journi GmbH
+Copyright 2023 Journi GmbH
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
 

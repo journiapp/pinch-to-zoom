@@ -1,3 +1,19 @@
+/*
+ * Copyright 2023 Journi GmbH
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.journiapp.pinchtozoom
 
 import androidx.compose.foundation.gestures.awaitEachGesture
@@ -26,14 +42,14 @@ import androidx.compose.ui.util.fastForEach
  * @param key Key of content.
  * Important to have unique key for elements from lazy lists, pagers. Otherwise zooming will not work properly.
  * @param showOriginal If true, the original composable will still be shown in the background when zooming is started.
- * true by default
+ * false by default
  * @param content Composable that will be zoomed and panned.
  */
 @Composable
 fun PinchToZoom(
     modifier: Modifier = Modifier,
     key: Any? = null,
-    showOriginal: Boolean = true,
+    showOriginal: Boolean = false,
     content: @Composable BoxScope.() -> Unit
 ) {
     var currentPosition by remember { mutableStateOf(Offset.Zero) }
@@ -46,7 +62,7 @@ fun PinchToZoom(
             .onGloballyPositioned {
                 //save a global position and size of the composable
                 currentSize = it.size
-                currentPosition = it.localToWindow(Offset.Zero)
+                currentPosition = it.localToRoot(Offset.Zero)
             }
             .pointerInput(key) {
                 awaitEachGesture {
@@ -85,7 +101,7 @@ fun PinchToZoom(
                 }
             }
     ) {
-        when (controller.isZooming && !showOriginal) {
+        when (controller.isZooming && !showOriginal && controller.composable == content) {
             //If zooming is started, show a placeholder with the same size
             true -> Box(modifier = Modifier.size(currentSize.toDpSize()))
             false -> content()
