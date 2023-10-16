@@ -17,6 +17,7 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("maven-publish")
 }
 
 android {
@@ -54,21 +55,37 @@ android {
     }
 }
 
+afterEvaluate {
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            create<MavenPublication>("release") {
+                // Applies the component for the release build variant.
+                from(components["release"])
+                // You can then customize attributes of the publication as shown below.
+                groupId = "com.github.journiapp"
+                artifactId = "pinch-to-zoom"
+                version = "1.0.0"
+            }
+        }
+    }
+}
+
 dependencies {
 
     implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.compose.ui:ui:1.5.2")
-    implementation("androidx.compose.ui:ui-tooling-preview:1.5.2")
-    implementation("androidx.compose.animation:animation:1.5.2")
-    implementation("androidx.compose.ui:ui-util:1.5.2")
-    implementation("androidx.compose.material:material:1.5.2")
-    debugApi("androidx.compose.ui:ui-tooling:1.5.2")
-    debugApi("androidx.compose.ui:ui-test-manifest:1.5.2")
+    implementation("androidx.compose.ui:ui:1.5.3")
+    implementation("androidx.compose.ui:ui-tooling-preview:1.5.3")
+    implementation("androidx.compose.animation:animation:1.5.3")
+    implementation("androidx.compose.ui:ui-util:1.5.3")
+    implementation("androidx.compose.material:material:1.5.3")
+    debugApi("androidx.compose.ui:ui-tooling:1.5.3")
+    debugApi("androidx.compose.ui:ui-test-manifest:1.5.3")
 
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
 
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.5.2")
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.5.3")
 }

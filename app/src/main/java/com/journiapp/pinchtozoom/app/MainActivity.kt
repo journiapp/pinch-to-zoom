@@ -1,4 +1,4 @@
-package com.journiapp.pinchtozoom
+package com.journiapp.pinchtozoom.app
 
 import android.R
 import android.os.Bundle
@@ -17,6 +17,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.journiapp.pinchtozoom.PinchToZoom
+import com.journiapp.pinchtozoom.PinchToZoomRoot
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

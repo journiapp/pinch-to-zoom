@@ -24,7 +24,8 @@ class PinchToZoomTest {
     val composeTestRule = createComposeRule()
 
     @Test
-    fun pinch_zoomed() {
+    fun pinch_zoomed_and_cleared_after_pinch_finished() {
+        // Build Basic Usage sample
         composeTestRule.setContent {
             PinchToZoomRoot {
                 Box(
@@ -43,9 +44,11 @@ class PinchToZoomTest {
                 }
             }
         }
+        // Save original bounds
         val node = composeTestRule.onNodeWithContentDescription("image")
         val boundsBefore = node.fetchSemanticsNode().boundsInRoot
 
+        // Perform pinching
         node.performTouchInput {
             down(0, center + Offset(-30f, 0f))
             down(1, center + Offset(+30f, 0f))
@@ -61,6 +64,7 @@ class PinchToZoomTest {
         val boundsAfter = nodePinching.fetchSemanticsNode().boundsInRoot
         assert(boundsAfter.width > boundsBefore.width && boundsAfter.height > boundsBefore.height)
 
+        // Finish pinching
         node.performTouchInput {
             up(0)
             up(1)

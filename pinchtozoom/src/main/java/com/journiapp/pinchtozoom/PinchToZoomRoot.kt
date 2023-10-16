@@ -48,6 +48,7 @@ fun PinchToZoomRoot(
         Box(modifier = Modifier.fillMaxSize()) {
             content()
 
+            // Crossfade responsible for background overlay when zooming is started
             Crossfade(targetState = controller.isZooming, label = crossfadeLabel) {
                 if (it) {
                     Box(
@@ -58,6 +59,7 @@ fun PinchToZoomRoot(
                 }
             }
             if (controller.isZooming) {
+                // Draw composable that is pinched
                 Box(
                     modifier = Modifier
                         //Set size of copy of the composable to the size of the original composable

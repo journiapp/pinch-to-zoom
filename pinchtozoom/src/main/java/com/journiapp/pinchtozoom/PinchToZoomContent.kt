@@ -60,7 +60,7 @@ fun PinchToZoom(
     Box(
         modifier = modifier
             .onGloballyPositioned {
-                //save a global position and size of the composable
+                // save a global position and size of the composable
                 currentSize = it.size
                 currentPosition = it.localToRoot(Offset.Zero)
             }
@@ -72,12 +72,13 @@ fun PinchToZoom(
                         val rotation = event.calculateRotation()
                         val offset = event.calculatePan()
 
+                        // Gesture is performing if it is either zooming, rotating or panning
                         val gestureIsPerforming =
                             (zoom != 1f || offset != Offset.Zero || rotation != 0f)
-                        //Check is any of the pointers is pressed and if any of the gestures is performing
+                        // Check is any of the pointers is pressed and if any of the gestures is performing
                         if (event.changes.all { it.pressed } && gestureIsPerforming && event.changes.size > 1) {
 
-                            //If zooming is started, set current position to the center of the gesture
+                            // If zooming is started, set current position to the center of the gesture
                             if (controller.isZooming.not()) {
                                 controller.position = currentPosition + offset
                             }
@@ -89,12 +90,12 @@ fun PinchToZoom(
                             controller.isZooming = true
                             controller.size = currentSize
 
-                            //Consume pitch to zoom event
+                            // Consume pitch to zoom event
                             event.changes.fastForEach { change ->
                                 change.consume()
                             }
                         } else {
-                            //Reset state to default when gesture is ended
+                            // Reset state to default when gesture is ended
                             controller.reset()
                         }
                     }
@@ -102,7 +103,7 @@ fun PinchToZoom(
             }
     ) {
         when (controller.isZooming && !showOriginal && controller.composable == content) {
-            //If zooming is started, show a placeholder with the same size
+            // If zooming is started, show a placeholder with the same size
             true -> Box(modifier = Modifier.size(currentSize.toDpSize()))
             false -> content()
         }

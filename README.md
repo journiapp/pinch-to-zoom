@@ -10,6 +10,23 @@ The Jetpack Compose Pinch-To-Zoom library is a tool that provides pinch-to-zoom 
 
 1. Import the library into your project.
 
+Add Jitpack to your repositories, in your top-level `build.gradle` or `settings.gradle` file:
+
+```groovy
+repositories {
+    ...
+    maven { url 'https://jitpack.io' }
+}
+```
+Then add the library to your dependencies in your app-level `build.gradle` file:
+
+```groovy
+dependencies {
+    ...
+    implementation 'com.github.journiapp:pinch-to-zoom:version'
+}
+```
+
 2. Wrap your zoomable content with `PinchToZoom` and your root view with `PinchToZoomRoot`.
 
 3. Customize the behavior by adjusting the provided parameters as needed.
@@ -75,7 +92,7 @@ fun MyZoomableContent() {
 
 - `modifier`: Modifier to be applied to the root of the component.
 - `key`: Key of the content. It's important to have a unique key for elements from lazy lists, pagers, etc., to ensure proper zooming behavior.
-- `showOriginal`: If `true`, the original Composable will still be shown in the background when zooming is started (default is `true`).
+- `showOriginal`: If `true`, the original Composable will still be shown in the background when zooming is started (default is `false`).
 - `content`: The Composable that will be zoomed and panned.
 
 ## License

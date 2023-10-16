@@ -2,10 +2,12 @@ package com.journiapp.pinchtozoom
 
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.unit.IntSize
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class PinchZoomableControllerTest {
 
     @Test
@@ -22,7 +24,7 @@ class PinchZoomableControllerTest {
     }
 
     @Test
-    fun `reset to default values after changes`() = runTest {
+    fun `reset to default values after reset() is called`() = runTest {
         val controller = PinchZoomableController()
         controller.scale = 2f
         controller.rotation = 90f
